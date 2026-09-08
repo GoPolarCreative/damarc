@@ -38,19 +38,27 @@ const socials = [
 
 /* ------------------------------------------------------------------ *
  * CLIENT / ACCREDITATION LOGOS
- * Drop artwork into /public/images/clients/<file>.svg (or .png / .webp)
- * and it is picked up automatically. Until a file exists the tile
- * renders as a monochrome wordmark, so the section is never broken.
+ * Files live in /public/images/. Rail authorities first, then the
+ * contractors and delivery partners. `note` prints a small caption
+ * under the tile, used to tie a consortium back to its project.
+ * TODO: Webuild artwork still to come - drop the file into
+ * /public/images/ and add a row here with note: 'Sydney Metro SSTOM'.
  * ------------------------------------------------------------------ */
 const clients = [
-  { name: 'John Holland', file: 'john-holland' },
-  { name: 'ARTC', file: 'artc' },
-  { name: 'Laing O’Rourke', file: 'laing-orourke' },
-  { name: 'Sydney Trains', file: 'sydney-trains' },
-  { name: 'Sydney Metro', file: 'sydney-metro' },
-  { name: 'UGL', file: 'ugl' },
-  { name: 'Metro Trains Melbourne', file: 'metro-trains-melbourne' },
-  { name: 'V/Line', file: 'vline' },
+  { name: 'Sydney Trains', file: 'image2.png' },
+  { name: 'Sydney Metro', file: 'image1.jpeg' },
+  { name: 'Metro Trains Sydney', file: 'image0.jpeg' },
+  { name: 'ARTC', file: 'image1.png' },
+  { name: 'V/Line', file: 'image3.jpeg' },
+  { name: 'Parklife Metro', file: 'image0.png', note: 'Sydney Metro SSTOM' },
+  { name: 'UGL Regional Linx', file: 'image2.jpeg' },
+  { name: 'John Holland', file: 'john.png' },
+  { name: 'Laing O’Rourke', file: 'laing.png' },
+  { name: 'MACA', file: 'maca.png' },
+  { name: 'Thee Group', file: 'thee.png' },
+  { name: 'Select', file: 'select.png' },
+  { name: 'Rocktown', file: 'rocktown.png' },
+  { name: 'Ladmore Management & Consulting', file: 'image001.png' },
 ];
 
 const fleet = [
@@ -150,24 +158,19 @@ const heroFacts = [
   { value: 'Australia wide', label: 'Mobilised on request' },
 ];
 
-const logoExtensions = ['svg', 'png'];
-
-function ClientLogo({ name, file }: { name: string; file: string }) {
-  const [attempt, setAttempt] = useState(0);
-  const exhausted = attempt >= logoExtensions.length;
+function ClientLogo({ name, file, note }: { name: string; file: string; note?: string }) {
+  const [failed, setFailed] = useState(false);
   return (
-    <div className={exhausted ? 'client-tile is-wordmark' : 'client-tile'}>
-      {exhausted ? (
-        <span>{name}</span>
-      ) : (
-        <img
-          src={`/images/clients/${file}.${logoExtensions[attempt]}`}
-          alt={name}
-          loading="lazy"
-          onError={() => setAttempt((current) => current + 1)}
-        />
-      )}
-    </div>
+    <figure className="client-logo">
+      <div className={failed ? 'client-tile is-wordmark' : 'client-tile'}>
+        {failed ? (
+          <span>{name}</span>
+        ) : (
+          <img src={`/images/${file}`} alt={`${name} logo`} loading="lazy" onError={() => setFailed(true)} />
+        )}
+      </div>
+      {note && <figcaption>{note}</figcaption>}
+    </figure>
   );
 }
 
@@ -480,7 +483,9 @@ function App() {
                 <span>Delivered for tier one contractors and rail authorities</span>
               </div>
               <div className="client-grid">
-                {clients.map((client) => <ClientLogo key={client.name} name={client.name} file={client.file} />)}
+                {clients.map((client) => (
+                  <ClientLogo key={client.name} name={client.name} file={client.file} note={client.note} />
+                ))}
               </div>
             </div>
           </div>
