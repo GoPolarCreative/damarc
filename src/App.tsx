@@ -42,7 +42,6 @@ const socials = [
  * contractors and delivery partners. `note` prints a small caption
  * under the tile, used to tie a consortium back to its project.
  * TODO: Webuild artwork still to come - drop the file into
- * /public/images/ and add a row here with note: 'Sydney Metro SSTOM'.
  * ------------------------------------------------------------------ */
 const clients = [
   { name: 'Sydney Trains', file: 'image2.png' },
@@ -50,7 +49,7 @@ const clients = [
   { name: 'Metro Trains Sydney', file: 'image0.jpeg' },
   { name: 'ARTC', file: 'image1.png' },
   { name: 'V/Line', file: 'image3.jpeg' },
-  { name: 'Parklife Metro', file: 'image0.png', note: 'Sydney Metro SSTOM' },
+  { name: 'Parklife Metro', file: 'image0.png' },
   { name: 'UGL Regional Linx', file: 'image2.jpeg' },
   { name: 'John Holland', file: 'john.png' },
   { name: 'Laing O’Rourke', file: 'laing.png' },
