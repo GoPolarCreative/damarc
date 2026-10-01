@@ -57,7 +57,6 @@ const clients = [
   { name: 'Thee Group', file: 'thee.png' },
   { name: 'Select', file: 'select.png' },
   { name: 'Rocktown', file: 'rocktown.png' },
-  { name: 'Ladmore Management & Consulting', file: 'image001.png' },
 ];
 
 const fleet = [
